@@ -19,7 +19,6 @@ type Props = {
   revealDelay?: number;
 };
 
-// Server Component (no client hooks)
 export default function ProjectCard({
   title = "Project title",
   subtitle = "Project subtitle",
@@ -37,58 +36,65 @@ export default function ProjectCard({
     <article className={cn("group relative", containerClassName)}>
       <RevealOnView
         delay={revealDelay}
-        className="rounded-3xl border border-white/10 p-1 shadow-[0_10px_60px_-10px_rgba(0,0,0,0.6)] lg:h-full"
+        className="rounded-3xl border border-white/10 p-1 shadow-[0_10px_60px_-10px_rgba(0,0,0,0.6)]"
         style={{
           backgroundImage: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
         }}
       >
-        <div className="relative overflow-hidden rounded-[1.35rem] bg-black lg:h-full flex items-center justify-center">
-          {/* Image */}
+        {/* CARD BODY */}
+        <div className="relative overflow-hidden rounded-[1.35rem] bg-black flex flex-col justify-between">
+          {/* IMAGE CONTAINER */}
           <div
             className={cn(
-              "relative w-full h-full flex items-center justify-center p-4",
+              "relative w-full flex items-center justify-center p-3 sm:p-4",
               imageContainerClassName
             )}
           >
-            <Image
-              src={imageSrc || "/placeholder.svg"}
-              alt={title}
-              fill
-              sizes="(min-width: 1024px) 66vw, 100vw"
-              priority={priority}
-              className="object-contain bg-black rounded-[1.35rem]"
-            />
-            {/* Subtle vignette */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20" />
+            <div className="relative w-full h-[220px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[520px] flex items-center justify-center">
+              <Image
+                src={imageSrc || "/placeholder.svg"}
+                alt={title}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 66vw"
+                priority={priority}
+                className="object-contain bg-black rounded-[1.35rem]"
+              />
+            </div>
+
+            {/* VIGNETTE OVERLAY */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
           </div>
 
-          {/* Top-left tags */}
-          <div className="pointer-events-none absolute left-4 top-4 flex flex-wrap gap-2">
+          {/* TAGS */}
+          <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-1 sm:gap-2">
             {tags.map((t) => (
               <Badge
                 key={t}
                 variant="secondary"
-                className="pointer-events-auto bg-black/50 text-white border-white/20 backdrop-blur-sm"
+                className="pointer-events-auto bg-black/50 text-white border-white/20 backdrop-blur-sm text-[10px] sm:text-xs md:text-sm"
               >
                 {t}
               </Badge>
             ))}
           </div>
 
-          {/* Bottom content */}
-          <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+          {/* CONTENT */}
+          <div className="p-4 sm:p-5">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <h3 className="text-lg font-semibold sm:text-xl">{title}</h3>
-                <p className="text-sm text-white/70">{subtitle}</p>
+              <div className="text-center sm:text-left">
+                <h3 className="text-base sm:text-lg md:text-xl font-semibold">
+                  {title}
+                </h3>
+                <p className="text-xs sm:text-sm text-white/70">{subtitle}</p>
               </div>
+
               <Link
                 href={href}
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-sm font-medium backdrop-blur transition-colors hover:bg-white/20 self-start sm:self-auto"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs sm:text-sm font-medium backdrop-blur transition-colors hover:bg-white/20 w-full sm:w-auto"
                 aria-label={`Open case study: ${title}`}
               >
                 Case study
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
               </Link>
             </div>
           </div>
