@@ -1,23 +1,23 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowRight } from 'lucide-react'
-import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils"
-import RevealOnView from "@/components/reveal-on-view"
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import RevealOnView from "@/components/reveal-on-view";
 
 type Props = {
-  title?: string
-  subtitle?: string
-  imageSrc?: string
-  tags?: string[]
-  href?: string
-  priority?: boolean
-  gradientFrom?: string
-  gradientTo?: string
-  imageContainerClassName?: string
-  containerClassName?: string
-  revealDelay?: number
-}
+  title?: string;
+  subtitle?: string;
+  imageSrc?: string;
+  tags?: string[];
+  href?: string;
+  priority?: boolean;
+  gradientFrom?: string;
+  gradientTo?: string;
+  imageContainerClassName?: string;
+  containerClassName?: string;
+  revealDelay?: number;
+};
 
 // Server Component (no client hooks)
 export default function ProjectCard({
@@ -42,19 +42,24 @@ export default function ProjectCard({
           backgroundImage: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
         }}
       >
-        <div className="relative overflow-hidden rounded-[1.35rem] bg-black lg:h-full">
+        <div className="relative overflow-hidden rounded-[1.35rem] bg-black lg:h-full flex items-center justify-center">
           {/* Image */}
-          <div className={cn("relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:h-full", imageContainerClassName)}>
+          <div
+            className={cn(
+              "relative w-full h-full flex items-center justify-center p-4",
+              imageContainerClassName
+            )}
+          >
             <Image
               src={imageSrc || "/placeholder.svg"}
               alt={title}
               fill
               sizes="(min-width: 1024px) 66vw, 100vw"
               priority={priority}
-              className="object-cover"
+              className="object-contain bg-black rounded-[1.35rem]"
             />
             {/* Subtle vignette */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/30" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20" />
           </div>
 
           {/* Top-left tags */}
@@ -90,5 +95,5 @@ export default function ProjectCard({
         </div>
       </RevealOnView>
     </article>
-  )
+  );
 }
