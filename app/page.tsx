@@ -13,7 +13,7 @@ export default function Page() {
     {
       title: "HR Analtics",
       subtitle: "End‑to‑end HR Insight Dashboard",
-      imageSrc: "/images/Hr analytics.png",
+      imageSrc: "Hr analytics.png",
       tags: ["Power BI", "Excel"],
       href: "https://github.com/sagarmeravi/HR-analytics",
       priority: true,
