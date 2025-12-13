@@ -1,14 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import RevealOnView from "@/components/reveal-on-view";
+import { useState, useEffect } from "react";
 
 type Props = {
   title?: string;
   subtitle?: string;
   imageSrc?: string;
+  images?: string[];
   tags?: string[];
   href?: string;
   priority?: boolean;
@@ -17,12 +21,14 @@ type Props = {
   imageContainerClassName?: string;
   containerClassName?: string;
   revealDelay?: number;
+  imageSlideInterval?: number;
 };
 
 export default function ProjectCard({
   title = "Project title",
   subtitle = "Project subtitle",
   imageSrc = "/placeholder.svg?height=720&width=1280",
+  images = [],
   tags = ["Design", "Web"],
   href = "#",
   priority = false,
@@ -31,7 +37,20 @@ export default function ProjectCard({
   imageContainerClassName,
   containerClassName,
   revealDelay = 0,
+  imageSlideInterval = 4000,
 }: Props) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const imageList = images.length > 0 ? images : [imageSrc];
+
+  useEffect(() => {
+    if (imageList.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % imageList.length);
+    }, imageSlideInterval);
+
+    return () => clearInterval(interval);
+  }, [imageList.length, imageSlideInterval]);
   return (
     <article className={cn("group relative", containerClassName)}>
       <RevealOnView
@@ -50,19 +69,48 @@ export default function ProjectCard({
               imageContainerClassName
             )}
           >
-            <div className="relative w-full h-[220px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[520px] flex items-center justify-center">
-              <Image
-                src={imageSrc || "/placeholder.svg"}
-                alt={title}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 66vw"
-                priority={priority}
-                className="object-contain bg-black rounded-[1.35rem]"
-              />
+            <div className="relative w-full h-[220px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[520px] flex items-center justify-center overflow-hidden rounded-[1.35rem]">
+              {imageList.map((img, idx) => (
+                <div
+                  key={idx}
+                  className={cn(
+                    "absolute inset-0 transition-opacity duration-500 ease-in-out",
+                    idx === currentImageIndex ? "opacity-100" : "opacity-0"
+                  )}
+                >
+                  <Image
+                    src={img || "/placeholder.svg"}
+                    alt={`${title} - Image ${idx + 1}`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 66vw"
+                    priority={priority && idx === 0}
+                    className="object-contain bg-black"
+                  />
+                </div>
+              ))}
             </div>
 
             {/* VIGNETTE OVERLAY */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 rounded-[1.35rem]" />
+
+            {/* IMAGE INDICATORS */}
+            {imageList.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {imageList.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={cn(
+                      "h-1.5 rounded-full transition-all duration-300",
+                      idx === currentImageIndex
+                        ? "bg-white w-6"
+                        : "bg-white/40 w-1.5 hover:bg-white/60"
+                    )}
+                    aria-label={`Go to image ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* TAGS */}
