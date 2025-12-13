@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -11,9 +12,33 @@ import RevealOnView from "@/components/reveal-on-view";
 export default function Page() {
   const projects = [
     {
+      title: "Text-to-Sql",
+      subtitle: "Natural Language to SQL Query Generator",
+      images: [
+        "/images/text-to-sql1.png",
+        "/images/text-to-sql2.png",
+        "/images/text-to-sql3.png",
+      ],
+      tags: ["Python", "Flask", "LLM", "Gen AI"],
+      href: "https://github.com/sagarmeravi/text-to-sql",
+      priority: true,
+      gradientFrom: "#0f172a",
+      gradientTo: "#6d28d9",
+    },
+    {
+      title: "Customer Segmentation Analysis",
+      subtitle: "Advanced customer clustering and behavioral segmentation",
+      images: ["/images/project-1.webp", "/images/project-1.webp"],
+      tags: ["Machine Learning", "Python", "Clustering", "Analytics"],
+      href: "#",
+      priority: false,
+      gradientFrom: "#0f172a",
+      gradientTo: "#0891b2",
+    },
+    {
       title: "HR Analtics",
       subtitle: "End‑to‑end HR Insight Dashboard",
-      imageSrc: "Hr analytics.png",
+      images: ["/images/project-1.webp", "/images/project-1.webp"],
       tags: ["Power BI", "Excel"],
       href: "https://github.com/sagarmeravi/HR-analytics",
       priority: true,
@@ -21,20 +46,31 @@ export default function Page() {
       gradientTo: "#6d28d9",
     },
     {
-      title: "Customer Churn Analytics",
-      subtitle: "Bank customer retention dashboard and prediction system",
-      imageSrc: "customerchurn.png",
-      tags: ["Power BI", "EXCEL"],
-      href: "https://github.com/sagarmeravi/Churn-Analytics",
+      title: "End-to-End Banking Analysis Dashboard",
+      subtitle:
+        "SQL, Python and Power BI driven banking analytics and dashboards",
+      images: ["/images/project-1.webp", "/images/project-1.webp"],
+      tags: ["SQL", "Python", "Power BI", "Banking"],
+      href: "#",
       priority: false,
-      gradientFrom: "#111827",
-      gradientTo: "#2563eb",
+      gradientFrom: "#1e1b4b",
+      gradientTo: "#dc2626",
+    },
+    {
+      title: "Delhi & Beijing Air Quality Analysis",
+      subtitle: "Real-time air quality monitoring and pollution trend analysis",
+      images: ["/images/project-1.webp", "/images/project-1.webp"],
+      tags: ["Power BI", "Environmental Data", "Time Series"],
+      href: "#",
+      priority: false,
+      gradientFrom: "#0b5345",
+      gradientTo: "#059669",
     },
     {
       title: "Data Warehouse and Analytics Project",
       subtitle:
         "Modern data warehouse using SQL Server to consolidate sales data, enabling analytical reporting and informed decision-making",
-      imageSrc: "datawarehouse.png",
+      images: ["/images/project-1.webp", "/images/project-1.webp"],
       tags: [
         "Data Architecture",
         "ETL Pipelines",
@@ -47,27 +83,47 @@ export default function Page() {
       gradientTo: "#5bc0be",
     },
     {
+      title: "Zerodha Full Stack MERN Clone",
+      subtitle: "Full-stack MERN implementation replicating Zerodha features",
+      images: ["/images/project-1.webp", "/images/project-1.webp"],
+      tags: ["MERN", "Full Stack", "React", "Node", "MongoDB"],
+      href: "#",
+      priority: false,
+      gradientFrom: "#0f172a",
+      gradientTo: "#8b5cf6",
+    },
+    {
+      title: "Customer Churn Analytics",
+      subtitle: "Bank customer retention dashboard and prediction system",
+      images: ["/images/project-1.webp", "/images/project-1.webp"],
+      tags: ["Power BI", "EXCEL", "Prediction"],
+      href: "https://github.com/sagarmeravi/Churn-Analytics",
+      priority: false,
+      gradientFrom: "#111827",
+      gradientTo: "#2563eb",
+    },
+    {
       title: "Portfolio Performance & Risk Analysis",
       subtitle: "Comprehensive Analysis of Stocks and Index",
-      imageSrc: "performance.png",
+      images: ["/images/project-1.webp", "/images/project-1.webp"],
       tags: ["Pandas", "Matplotlib & Seaborn", "NumPy", "Python", "API"],
       href: "https://github.com/sagarmeravi/Portfolio-Performance-Risk-Analysis",
       priority: false,
       gradientFrom: "#0f172a",
       gradientTo: "#10b981",
     },
-    // {
-    //   title: "Trading Strategy Analysis",
-    //   subtitle:
-    //     "End to End Building Strategy to backtesting and analysing metrics",
-    //   imageSrc: "performance.png",
-    //   tags: ["SQL", "Pandas", "Python", "PineCode"],
-    //   href: "#project-5",
-    //   priority: false,
-    //   gradientFrom: "#1f2937",
-    //   gradientTo: "#8b5cf6",
-    // },
   ];
+  // {
+  //   title: "Trading Strategy Analysis",
+  //   subtitle:
+  //     "End to End Building Strategy to backtesting and analysing metrics",
+  //   imageSrc: "performance.png",
+  //   tags: ["SQL", "Pandas", "Python", "PineCode"],
+  //   href: "#project-5",
+  //   priority: false,
+  //   gradientFrom: "#1f2937",
+  //   gradientTo: "#8b5cf6",
+  // },
 
   return (
     <main className="bg-neutral-950 text-white">
@@ -86,6 +142,24 @@ export default function Page() {
               <div className="pointer-events-none absolute inset-0 opacity-5 mix-blend-soft-light">
                 <DotGridShader />
               </div>
+
+              {/* Profile photo (upper area) */}
+              <div className="absolute top-4 right-4 hidden lg:block pointer-events-none">
+                <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-white/20 shadow-sm bg-neutral-900">
+                  <Image
+                    src="/images/mypfp.png"
+                    alt="Sagar Meravi"
+                    width={48}
+                    height={48}
+                    priority
+                    className="object-cover"
+                  />
+                  <span
+                    className="absolute -right-2 -top-2 h-3 w-3 rounded-full ring-2 ring-neutral-900 bg-white/20"
+                    aria-hidden="true"
+                  />
+                </div>
+              </div>
               <div>
                 {/* Wordmark */}
                 <div className="mb-8 flex items-center gap-2">
@@ -102,17 +176,19 @@ export default function Page() {
                 <AnimatedHeading
                   className="text-2xl font-black leading-[1.05] tracking-tight sm:text-3xl"
                   lines={[
-                    "I don’t just manage projects",
-                    "I deliver results.",
                     "I don’t just analyze data",
                     "I turn it into strategy",
+                    "I don’t just manage projects",
+                    "I deliver results.",
                   ]}
                 />
 
                 <p className="mt-4 max-w-[42ch] text-base text-white/70">
-                  Data Analyst with over two years of experience, I specialize
-                  in transforming complex datasets into strategic business
-                  insights.
+                  I transform complex data into actionable insights and
+                  intuitive digital experiences. With expertise spanning
+                  workforce analytics, business intelligence, and full-stack
+                  development, I bridge the gap between data science and
+                  user-focused technology.
                 </p>
 
                 {/* CTAs */}
@@ -150,7 +226,7 @@ export default function Page() {
                 key={p.title}
                 title={p.title}
                 subtitle={p.subtitle}
-                imageSrc={p.imageSrc}
+                images={p.images}
                 tags={p.tags}
                 href={p.href}
                 priority={p.priority}
